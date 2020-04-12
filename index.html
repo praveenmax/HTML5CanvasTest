@@ -1,0 +1,167 @@
+</body>
+</html>
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<head>
+
+<style>
+.container { 
+
+	position: relative; 
+	width: 100%; 
+	padding-top: 56.25%; /* 16:9 Aspect Ratio */ 
+    border-style: dotted;
+    text-align: center;
+
+} 
+
+
+.title{
+
+  color: white;
+  align : center;
+
+}
+
+canvas
+{ 
+	border: 1px solid white; 
+    align : center;
+}
+
+</style>
+	<script>
+		class SceneObject
+		{
+			 constructor(image, x, y, width, height)
+			 {
+				this.image = image;
+				this.x = x;
+				this.y = y;
+				this.angle = 0;
+				this.width = width;
+				this.height = height;
+				this.centerX = x - width/2;
+				this.centerY = y - height/2;
+			 }
+		}
+		
+
+		var ctx = null;
+		
+		var canvas = null;
+		var flowerArray = [];
+		
+		function init()
+		{
+			canvas = document.getElementById('mycanvas');
+			ctx = canvas.getContext('2d');
+			
+			timer = setInterval(draw, 10);
+			//return timer;
+			
+		}
+		
+		function draw() {
+			//ctx.fillStyle = "#492300";
+			ctx.fillRect(0, 0, canvas.width, canvas.height);
+			
+			//draw the image
+			
+			for(var i = 0; i < flowerArray.length;i ++)
+			{
+					ctx.save();
+					ctx.translate(flowerArray[i].centerX,flowerArray[i].centerY);
+					ctx.rotate(flowerArray[i].angle++ *Math.PI/180);
+
+					ctx.drawImage( flowerArray[i].image,
+											 -flowerArray[i].width/2, -flowerArray[i].height/2,
+											flowerArray[i].width, flowerArray[i].height);	
+					ctx.restore();
+		
+			}
+			
+			
+			/*
+			if( flowerArray.length == 2)
+			{
+				//ctx.fillStyle = "lightsalmon";
+				//ctx.fillRect(flower.x ,flower.y,1,1);
+				
+				ctx.save();
+				ctx.translate(flowerArray[0].centerX,flowerArray[0].centerY);
+
+				ctx.rotate(flowerArray[0].angle++ *Math.PI/180);
+				ctx.drawImage( flowerArray[0].image,
+									     -flowerArray[0].width/2, -flowerArray[0].height/2,
+										flowerArray[0].width, flowerArray[0].height);	
+				ctx.restore();
+				
+				
+				ctx.save();
+				ctx.translate(flowerArray[1].x,flowerArray[1].y);
+
+
+				ctx.rotate(flowerArray[1].angle++ *Math.PI/180);
+				ctx.drawImage( flowerArray[1].image,
+									     -flowerArray[1].width/2, -flowerArray[1].height/2,
+										flowerArray[1].width, flowerArray[1].height);	
+				ctx.restore();
+				
+				
+	
+			}
+
+			*/
+		}
+	
+		function createFlower(xpos, ypos, width, height) {
+			  var img = new Image();
+			  img.onload = function() {
+			  
+			   var sObj = new SceneObject(img,xpos, ypos, width, height);
+				flowerArray.push(sObj);
+				
+				if(flowerArray.length > 10)
+					flowerArray = [];
+							
+
+			  };
+
+			  //img.src = 'img/box.png';
+			  img.src = 'img/flowerssmall.png';
+			  
+		}
+		
+	
+		function onTouch(event)
+		{
+			
+			 var xpos = event.touches[0].clientX;
+			 var ypos = event.touches[0].clientY;
+			 
+			 flower = null;
+			 //show the flower
+			 createFlower(xpos,ypos, 100, 100);
+			
+		}
+		
+		
+
+	</script>
+</head>
+
+<body  onload="init();" bgcolor="black">
+	<div align="center" >
+		<canvas id="mycanvas" height=300 ontouchstart="onTouch(event)"  >
+		Your browser doesnt support canvas
+		</canvas>
+	</div>
+<h4  class="title" align="center"><br/>By @PraveenMax</h4>
+<b  class="title"  align="center">Flower animation. Tap above....</b>
+<br />
+
+
+
+</body>
+</html>

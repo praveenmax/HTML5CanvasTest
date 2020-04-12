@@ -1,0 +1,50 @@
+</body>
+</html>
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<head>
+
+<style>
+
+.container { 
+
+	position: relative; 
+	width: 100%; 
+	padding-top: 56.25%; /* 16:9 Aspect Ratio */ 
+    border-style: dotted;
+    text-align: center;
+
+} 
+</style>
+</head>
+<body>
+
+<h4 align="center">Hi there,<br/>I am PraveenMax :)</h4>
+<b align="center"><u>My Colorful demo</u></b>
+<div id="gamearea" class="container" ontouchmove="touchTest(event)" >Touch Here</div>
+
+
+
+<p  align="center" id="touchArea" ></p>
+
+<script>
+function touchTest(event) {
+  var xpos = event.touches[0].clientX;
+  var ypos = event.touches[0].clientY;
+  var currWidth = document.getElementById("gamearea").clientWidth;
+  var currHeight = document.getElementById("gamearea").clientHeight;
+  
+  document.getElementById("touchArea").innerHTML = xpos + ", " + ypos;
+  //console.log(currWidth);
+	
+  var r=(xpos/currWidth )* 255;  
+  var g=0;
+  var b=(ypos/currWidth )* 255; 
+
+  document.getElementById("gamearea").style.background ='rgba('+r+','+g+','+b+',0.8)';
+  
+}
+</script>
+
+</body>
+</html>
